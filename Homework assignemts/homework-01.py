@@ -1,3 +1,4 @@
+'''python
 """
 name: Brett Workman
 email: brettworkman2014@gmail.com
@@ -97,3 +98,4 @@ H.) print('colin kaepernick' in superbowls)
 I.) def replace_all(d, x, y):
 J.) def rm(d, x):
 
+'''
