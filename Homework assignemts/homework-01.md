@@ -1,131 +1,228 @@
-'''python
+# -*- coding: utf-8 -*-
+import os
+import random
+
+#Source: http://codereview.stackexchange.com/questions/82103/ascii-fication-of-playing-cards
+
+CARD = """\
+┌───────┐
+│{}     │
+│       │
+│   {}  │
+│       │
+│     {}│
+└───────┘
+""".format('{trank:^2}', '{suit: <2}', '{brank:^2}')
+
+TEN = """\
+┌───────┐
+│{}    │
+│       │
+│   {}  │
+│       │
+│    {}│
+└───────┘
+""".format('{trank:^3}', '{suit: <2}', '{brank:^3}')
+
+FACECARD = """\
+┌───────┐
+│{}│
+│       │
+│   {}  │
+│       │
+│{}│
+└───────┘
+""".format('{trank:<7}', '{suit: <2}', '{brank:>7}')
+
+HIDDEN_CARD = """\
+┌───────┐
+│░░░░░░░│
+│░░░░░░░│
+│░░░░░░░│
+│░░░░░░░│
+│░░░░░░░│
+└───────┘
 """
-name: Brett Workman
-email: brettworkman2014@gmail.com
-Assignment: Homework 1 - Lists and Dictionaries
-Due: 31 jan @ 11:00 a.m.
-"""
 
-
-A.) What would Python print?
-
-    a = [1, 5, 4, 2, 3] 
-    print(a[0], a[-1])
-    # Prints: 1 3
-
-    a[4] = a[2] + a[-2]
-    Print(a)
-    # Prints: [1, 5, 4, 2, 6]
-
-    print(len(a))
-    # Prints: 5
-
-    print(4 in a)
-    # Prints: true
-
-    a[1] = [a[1], a[0]]
-    print(a)
-    # Prints: [1, [5, 1], 4, 2, 6]
+class Card(object):
     
-B.) Write a function that removes all instances of an element from a list.
+    def __init__(self, suit, rank):
+        """
+        :param suit: The face of the card, e.g. Spade or Diamond
+        :param rank: The value of the card, e.g 3 or King
+        """
 
-    def remove_all(el, list):
-
-C.) Write a function that takes in two values, x and y, and a list, and adds as many y's to the end of the list as there are x's. Do not use the built-in function count.
-
-    add_this_many(x, y, list):
-
-D.) What would Python print?
-
-    a = [3, 1, 4, 2, 5, 3]
-    print(a[:4])
-    # Prints: [3, 1, 4, 2] because it says print out the first four numbers
-    # of the array
-
-    print(a)
-    # Prints: [3, 1, 4, 2, 5, 3] 
-
-    print(a[1::2])
-    # Prints: [1, 2, 3]
-    # it prints out the array but only every other number starting after the
-    # irst number
-
-    print(a[:])
-    # Prints: [3, 1, 4, 2, 5, 3]
-
-    print(a[4:2])
-    # Prints: []
-    # it just prints out nothing bcause you are saying "print out the numbers in
-    # chronological order from 4 - 2" 
-
-    print(a[1:-2])
-    # Prints: [1, 4, 2]
-
-    print(a[::-1])
-    # Prints: [3, 5, 2, 4, 1, 3]
-    # it just prints it out in reverse order
-
-E.) Let's reverse Python lists in place, meaning mutate the passed in list itself, instead of returning a new list. We didn't discuss this in class directly, so feel free to use google. Why is the "in place" solution prefered?
-
-    def reverse(list):
-    # in place is prefered because instead of just reversing the numbers and placing 
-    # them in new locations it simply reverses the locations of the numbers.
+        self.ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King","Ace"]
 
 
-F.) Write a function that rotates the elements of a list to the right by k. Elements should not ”fall off”; they should wrap around the beginning of the list. rotate should return a new list. To make a list of n 0's,you can do this: [0] * n
 
-    def rotate(list, k):
+        self.card_values = {
+            '2': 2,
+            '3': 3,
+            '4': 4,
+            '5': 5,
+            '6': 6,
+            '7': 7,
+            '8': 8,
+            '9': 9,
+            '10': 10,
+            'Jack': 11,
+            'Queen': 12,
+            'King': 13,
+            'Ace': 14,  # value of the ace is high until it needs to be low
+        }
+
+        self.str_values = {
+            '2': CARD,
+            '3': CARD,
+            '4': CARD,
+            '5': CARD,
+            '6': CARD,
+            '7': CARD,
+            '8': CARD,
+            '9': CARD,
+            '10': TEN,
+            'Jack': FACECARD,
+            'Queen': FACECARD,
+            'King': FACECARD,
+            'Ace': FACECARD,  # value of the ace is high until it needs to be low
+        }
+
+        self.suits = ['Spades','Hearts','Diamonds','Clubs']
+
+        self.symbols = {
+            'Spades':   '♠',
+            'Diamonds': '♦',
+            'Hearts':   '♥',
+            'Clubs':    '♣',
+        }
 
 
-(no G..... i guess?) 
+        if type(suit) is int:
+            self.suit = self.suits[suit]
+        else:
+            self.suit = suit.capitalize()
+        self.rank = str(rank)
+        self.symbol = self.symbols[self.suit]
+        self.points = self.card_values[str(rank)]
+        self.ascii = self.__str__()
+    
 
-    superbowls = {'joe montana': 4, 'tom brady':3, 'joe flacco': 0}
-    print(superbowls['tom brady'])
-    # Prints: 3
+    def __str__(self):
+        symbol = self.symbols[self.suit]
+        trank = self.rank+symbol
+        brank = symbol+self.rank
+        return self.str_values[self.rank].format(trank=trank, suit=symbol,brank=brank)
+           
+    def __cmp__(self,other):
+        
+        return self.ranks.index(self.rank) < self.ranks.index(other.rank) 
+   
+    # Python3 wasn't liking the __cmp__ to sort the cards, so 
+    # documentation told me to use the __lt__ (less than) 
+    # method.
+    def __lt__(self,other):
+        return self.__cmp__(other)
 
-    superbowls['peyton manning'] = 1
-    print(superbowls)
-    # Prints: {'peyton manning': 1, 'tom brady': 3, 'joe flacco': 0, 'joe montana': 4}
+"""
+@Class Deck 
+@Description:
+    This class represents a deck of cards. 
+@Methods:
+    pop_cards() - removes a card from top of deck
+    add_card(card) - adds a card to bottom of deck
+    shuffle() - shuffles deck
+    sort() - sorts the deck based on value, not suit (could probaly be improved based on need)
+"""       
+class Deck(object):
+    def __init__(self):
+        #assume top of deck = 0th element
+        self.cards = []
+        for suit in range(4):
+            for rank in ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King","Ace"]:
+                self.cards.append(Card(suit,rank))
+                
+    def __str__(self):
+        res = []
+        for card in self.cards:
+            res.append(str(card))
+        return "".join(res)
+    
+    def pop_card(self):
+        return self.cards.pop(0)
+        
+    def add_card(self,card):
+        self.cards.append(card)
+        
+    def shuffle(self):
+        random.shuffle(self.cards)
+    
+    def sort(self):
+        self.cards = sorted(self.cards)
 
-    superbowls['joe flacco'] = 1
-    print(superbowls)
-    # Prints:{'peyton manning': 1, 'tom brady': 3, 'joe flacco': 1, 'joe montana': 4}
+class Hand(list):
+    def __init__(self, cards=None):
+        """Initialize the class"""
+        super().__init__()
+        if (cards is not None):
+            self._list = list(cards)
+        else:
+            self._list = []
+    
+    def __str__(self):
+        return self.join_lines()
 
-H.) Continuing from above, what would Python print?
+    def join_lines(self):
+        """
+        Stack strings horizontally.
+        This doesn't keep lines aligned unless the preceding lines have the same length.
+        :param strings: Strings to stack
+        :return: String consisting of the horizontally stacked input
+        """
+        liness = [card.ascii.splitlines() for card in self._list]
+        return '\n'.join(''.join(lines) for lines in zip(*liness))
+        
+    def add(self,card):
+        self._list.append(card)
+        
+    def sort(self):
+        self._list = sorted(self._list)
+        
+    def __getitem__(self,key):
+        return self._list[key]
+        
 
-    print('colin kaepernick' in superbowls)
-    #Prints: False (because Colin Kaepernick isnt there)
 
-    print(len(superbowls))
-    #Prints: 4 (because that is the length of the dictionary)
+player = Hand()
+comp = Hand()
+D = Deck()
+D.shuffle()
+for i in range(26):
+    player.add(D.pop_card())
+    comp.add(D.pop_card())
 
-    print(superbowls['peyton manning'] == superbowls['joe montana'])
-    #Prints: False (because peyton manning is defined as 1 while joe is
-    # defined as 4 and 1 =/= 4
+print(player[0])
+print(comp[0])
 
-    superbowls[('eli manning', 'giants')] = 2
-    print(superbowls)
-    #Prints: {'joe montana': 4, ('eli manning', 'giants'): 2, 'tom brady': 3, 'peyton manning': 1, 'joe flacco': 1}
+if player[0] > comp[0]:
+  D.add_card(player.__getitem__())
+  D.add_card(comp.__getitem__())
+  player.add(D.pop_card)
+  player.add(D.pop_card)
+else:
+  if player[0] < comp[0]:
+    D.add_card(player.__getitem__())
+    D.add_card(comp.__getitem__())
+    comp.add(D.pop_card())
+    comp.add(D.pop_card())
 
-    superbowls[3] = 'cat'
-    print(superbowls)
-    #Prints: {'joe montana': 4, ('eli manning', 'giants'): 2, 3 : 'cat', 'tom brady': 3, 'peyton manning': 1, 'joe flacco': 1}
-
-
-    superbowls[('eli manning', 'giants')] =  superbowls['joe montana'] + superbowls['peyton manning']
-    print(superbowls)
-    # print: {('eli manning', 'giants'): 5, 3: 'cat', 'tom brady': 3, 'peyton manning': 1, 'joe flacco': 1, 'joe montana': 4}
-
-    superbowls[['steelers', '49ers']] = 11
-    print(superbowls)
-    #Prints: it will give us an error code. however, superbowls[('steelers', '49ers')] = 11
-    # will print this: {3: 'cat', 'joe flacco': 1, 'peyton manning': 1, ('eli manning', 'giants'): 5, 'tom brady': 3, ('steelers', '49ers'): 11, 'joe montana': 4}
-
-I.)Given a dictionary replace all occurrences of x as the value with y.
-
-    def replace_all(d, x, y):
-J.) Given a (non-nested) dictionary delete all occurences of a value. You cannot delete items in a dictionary as you are iterating through it (google :) ).
-
-    def rm(d, x):
-
-'''
+  else:
+    D.add(())
+    D.add(())
+    D.add(())
+    D.add(())
+    
+    
+    
+    
+    
