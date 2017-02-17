@@ -191,15 +191,11 @@ class Hand(list):
     def __getitem__(self,key):
         return self._list[key]
     
-class War (object):
-  def __init__(self):
-    self._list == []
-    
-  
-  
-  
-  
-  
+    def challenge(self):
+        return self._list.pop(0)
+        
+
+
 player = Hand()
 comp = Hand()
 D = Deck()
@@ -207,6 +203,44 @@ D.shuffle()
 for i in range(26):
     player.add(D.pop_card())
     comp.add(D.pop_card())
+
 print(player[0])
 print(comp[0])
 
+while len(player) != 52  or len(comp) != 52:
+
+    if player[0].__cmp__(comp[0].__cmp__()):
+      D.add_card(player.challenge())
+      D.add_card(comp.challenge())
+      player.add(D.pop_card)
+      player.add(D.pop_card)
+    else:
+      if player[0] < comp[0]:
+        D.add_card(player.challenge())
+        D.add_card(comp.challenge())
+        comp.add(D.pop_card())
+        comp.add(D.pop_card())
+
+      else:
+        D.add_card(player.challenge())
+        D.add_card(player.challenge())
+        D.add_card(comp.challenge())
+        D.add_card(comp.challenge())
+        
+    print(player[0])
+    print(comp[0])
+        
+if player == 52:
+  print("you win")
+  
+else:
+  print("you loose")
+        
+      
+    
+    
+    
+    
+    
+    
+    
