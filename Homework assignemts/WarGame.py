@@ -193,11 +193,14 @@ class Hand(list):
     
     def challenge(self):
         return self._list.pop(0)
+    def Shuff(self):
+        random.shuffle(self._list)
         
 
 
 player = Hand()
 comp = Hand()
+stack = Deck()
 D = Deck()
 D.shuffle()
 for i in range(26):
@@ -209,33 +212,39 @@ print(comp[0])
 
 while len(player) != 52  or len(comp) != 52:
 
-    if player[0].__cmp__(comp[0].__cmp__()):
-      D.add_card(player.challenge())
-      D.add_card(comp.challenge())
-      player.add(D.pop_card)
-      player.add(D.pop_card)
+    if player[0].__cmp__(comp[0]):
+      stack.add_card(player.challenge())
+      stack.add_card(comp.challenge())
+      player.add(stack.pop_card)
+      player.add(stack.pop_card)
     else:
-      if player[0] < comp[0]:
-        D.add_card(player.challenge())
-        D.add_card(comp.challenge())
-        comp.add(D.pop_card())
-        comp.add(D.pop_card())
+      if comp[0].__cmp__(player[0]):
+        stack.add_card(player.challenge())
+        stack.add_card(comp.challenge())
+        comp.add(stack.pop_card())
+        comp.add(stack.pop_card())
 
       else:
-        D.add_card(player.challenge())
-        D.add_card(player.challenge())
-        D.add_card(comp.challenge())
-        D.add_card(comp.challenge())
-        
-    print(player[0])
-    print(comp[0])
-        
-if player == 52:
-  print("you win")
+        if player.__cmp(comp[]) == [] or comp.__cmp(player[]) == []:
+            if player.__cmp(comp[]) == []
+              print("congrats! you win!")
+            else:
+              print("you loose")
+        else:
+            stack.add_card(player.challenge())
+            stack.add_card(player.challenge())
+            stack.add_card(comp.challenge())
+            stack.add_card(comp.challenge())
+    
   
-else:
-  print("you loose")
+player.sort()
+comp.sort()
+player.Shuff()
+comp.Shuff()
+print(player[0])
+print(comp[0])
         
+
       
     
     
