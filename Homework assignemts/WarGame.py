@@ -210,7 +210,7 @@ for i in range(26):
 print(player[0])
 print(comp[0])
 
-while len(player) != 52  or len(comp) != 52:
+while len(player) != 0  or len(comp) != 0:
 
     if player[0].__cmp__(comp[0]):
       stack.add_card(player.challenge())
@@ -223,18 +223,20 @@ while len(player) != 52  or len(comp) != 52:
         stack.add_card(comp.challenge())
         comp.add(stack.pop_card())
         comp.add(stack.pop_card())
-
+        
+           
       else:
-        if player.__cmp(comp[]) == [] or comp.__cmp(player[]) == []:
-            if player.__cmp(comp[]) == []
+            stack.add_card(player.challenge())
+            stack.add_card(player.challenge())
+            stack.add_card(comp.challenge())
+            stack.add_card(comp.challenge())
+            
+    if player == []:
+              print("You Loose")
+    else:
               print("congrats! you win!")
-            else:
-              print("you loose")
-        else:
-            stack.add_card(player.challenge())
-            stack.add_card(player.challenge())
-            stack.add_card(comp.challenge())
-            stack.add_card(comp.challenge())
+    print(player[0])
+    print(comp[0])
     
   
 player.sort()
@@ -244,7 +246,12 @@ comp.Shuff()
 print(player[0])
 print(comp[0])
         
-
+if len(comp) == 0:
+  print("you win")
+  
+else:
+  print("you loose")
+        
       
     
     
