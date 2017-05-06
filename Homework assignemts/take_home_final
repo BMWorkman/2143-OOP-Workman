@@ -22,15 +22,29 @@ class Shape(object):
 class Square(object):
     def __init(self):
       pass
+    def area(self):
+      pass
+    def perameter(self):
+      pass
       
 
 class Retangle(object):
   def __init(self): 
     pass
+  def Area(self):
+    pass
+  def perameter(self):
+      pass
 
 class Cube(object):
   def __init(self):
     pass
+  def SurfaceArea(self):
+    pass
+  def Volume(self):
+    pass
+  
+  
     
 question 4
 question 5
