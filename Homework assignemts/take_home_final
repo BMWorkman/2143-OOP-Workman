@@ -43,25 +43,18 @@ class Cube(object):
     return (self.side.p1 **2) * 6
   def volume(self):
     self.shape ** 3
-    
-w = 4
-h = 6
-s1 = Square(w)
-r1 = Rectangle(w,h)
-c1 = Cube(w)
-print(s1.area())
-print(r1.area())
-print(c1.area())
-print(s1.perimeter())
-print(c1.surfaceArea())
   
     
 question 4
-class Repeat(object):
+class Repeating(object):
   def __init__(self):
     pass
   
   def char(self):
+    pass
+  
+  def check(self):
+    pass
 question 5
 
 question 6
