@@ -3,7 +3,7 @@ question 1:
 question 2:
 
 question 3:
-  class Point:
+  class Point(object):
     def __init__(self,x,y):
         self.x = x
         self.y = y
@@ -23,38 +23,30 @@ class Square(object):
     def __init(self,x):
       self.x = x
     def area(self):
-      self.x ** 2
-    def perameter(self):
-      self.x * 4
+      return self.x ** 2
+    def perimeter(self):
+      return self.x * 4
       
 
 class Rectangle(object):
-  def __init(self): 
-    pass
-  def area(self):
-    return self.side.p1 * self.side.p2
-  def perameter(self):
-      return (self.side.p1 +self.side.p2) * 2
+  def __init(self, p1, p2): 
+    self.p1 = p1
+    self.p2 = p2
+  def area(self, p1, p2):
+    return self.p1 * self.p2
+  def perameter(self, p1, p2):
+      return (self.p1 +self.p2) * 2
 
 class Cube(object):
-  def __init(self):
-    pass
+  def __init(self,x):
+    self.p1 = x
   def surfaceArea(self):
-    return (self.side.p1 **2) * 6
+    return (self.p1 **2) * 6
   def volume(self):
-    self.shape ** 3
-  
+    self.p1 ** 3
     
 question 4
-class Repeating(object):
-  def __init__(self):
-    pass
-  
-  def char(self):
-    pass
-  
-  def check(self):
-    pass
+
 question 5
 
 question 6
