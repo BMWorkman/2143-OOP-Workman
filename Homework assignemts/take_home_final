@@ -45,7 +45,34 @@ class Cube(object):
   def volume(self):
     self.p1 ** 3
     
-question 4
+question 4:
+"""
+this code checks in chronological order of how many characters are repeated if they repeat at all.
+some of this code can be found here:
+http://stackoverflow.com/questions/39252731/counting-duplicate-characters
+"""
+def duplicate_count(text):
+    num = 0
+    count = {}      #this is a dictionary used to hold the character and the amount
+                     # of times that character repeats.
+    
+    for char in text:
+        
+        if char in count.keys():
+            count[char] += 1 #this is to keep track of which character is repeating
+        else:
+            count [char] = 1 #if it finds a character that is not there it appends that character
+    for key in count:
+        if count[key] == 1:
+           num = 0
+        else:
+           num = count[key] - 1
+    for char in count:
+        if count[char] > 1
+          
+
+sample = 'abcde'
+print (duplicate_count(sample))
 
 question 5
 
