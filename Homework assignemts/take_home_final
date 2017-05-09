@@ -4,6 +4,11 @@ question 1:
 
 question 2:
 
+"""
+this code is meant to demonstrate this scinareo:
+if tickets to a movie is 25 dollars and the casher starts off with no money
+if he sells tickets can he give exact change to the last person?
+"""
 
 def Avengers(number):
   total = 0
@@ -26,6 +31,12 @@ def Avengers(number):
 
 
 question 3:
+
+"""
+this code is meant to cereate a simple algorith that will create a square/cube/rectangle
+and return its area/perimeter/volume/surfacec area.
+"""
+
   class Point(object):
     def __init__(self,x,y):
         self.x = x
@@ -94,11 +105,11 @@ def duplicate_count(text):
         if count[char] > 1
           
 
-sample = 'abcde'
-print (duplicate_count(sample))
-
 question 5:
-
+"""
+this code is meant to show if the given array is listed in chronological order.
+If it is not then it will tell the first number it is mising
+"""
 def Chronological(number):
   num = 0
   check = []
