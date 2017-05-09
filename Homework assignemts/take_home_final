@@ -17,12 +17,7 @@ def Avengers(number):
   for N in number:
     check.append(N)
     total += N
-    print(check)
-    print (total)
-  
   checkagain = check.pop()
-  print(checkagain)
-  
   if checkagain >= total - checkagain:
     return ("yes")
   else:
