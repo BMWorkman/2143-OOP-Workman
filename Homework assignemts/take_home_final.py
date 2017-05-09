@@ -2,6 +2,27 @@ question 1:
 
 question 2:
 
+
+def Avengers(number):
+  total = 0
+  checkagain = 0
+  check = []
+  for N in number:
+    check.append(N)
+    total += N
+    print(check)
+    print (total)
+  
+  checkagain = check.pop()
+  print(checkagain)
+  
+  if checkagain >= total - checkagain:
+    return ("yes")
+  else:
+    return ("No, Vasya will not have enough money to give change to 100 dollars")
+  
+
+
 question 3:
   class Point(object):
     def __init__(self,x,y):
@@ -74,7 +95,19 @@ def duplicate_count(text):
 sample = 'abcde'
 print (duplicate_count(sample))
 
-question 5
+question 5:
+
+def Chronological(number):
+  num = 0
+  check = []
+  for N in number:
+    check.append(N)
+  for num in check:
+    if check[num] != check [num-1] + 1:
+      return ("the number missing is" num + 1)
+    else:
+      return ("it is chronologically correct")
+
 
 question 6
 
